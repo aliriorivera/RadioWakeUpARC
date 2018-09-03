@@ -1,37 +1,28 @@
-## Welcome to GitHub Pages
+# RadioWakeUpARC
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Naereen/StrapDown.js/graphs/commit-activity)
+[![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![ForTheBadge built-by-developers](http://ForTheBadge.com/images/badges/built-by-developers.svg)](https://GitHub.com/Naereen/)
 
-You can use the [editor on GitHub](https://github.com/aliriorivera/RadioWakeUpARC/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+![RADIO APP ICON ARC ](https://github.com/aliriorivera/RadioWakeUpARC/tree/master/app/src/main/res/drawable/radio_ARC_ic.png)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+This Android application provides the user with the posibility to play a radio station stream at a specific date and time. 
+Similar to an alarm radio clock, you can set the time and for now (V 1.0) play a Colombian radio station: [Radioactiva 97.9 FM](http://www.radioacktiva.com/).
 
-### Markdown
+If you need to wake up in the mornigns with a radio station, you just select the time and the app will open the radios tation (in future version there is going to be a rado stations browser).
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
 
-```markdown
-Syntax highlighted code block
+### Release: V1.0
 
-# Header 1
-## Header 2
-### Header 3
+I have just released the first version of the application!!!!.
+In this version you can set times and play with basic functionalitites.
+For more details see 
 
-- Bulleted
-- List
+--> [RadioWakeUpARC V 1.0](https://github.com/aliriorivera/RadioWakeUpARC/releases/tag/v1.0).
 
-1. Numbered
-2. List
 
-**Bold** and _Italic_ and `Code` text
+# License
+### GPLv3
+*GNU GENERAL PUBLIC LICENSE version 3* by [Free Software Foundation, Inc.](http://fsf.org/). Read the [original GPL v3](http://www.gnu.org/licenses/).
 
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/aliriorivera/RadioWakeUpARC/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+![GPLV3](http://www.gnu.org/graphics/gplv3-127x51.png)
