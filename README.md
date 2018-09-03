@@ -4,21 +4,25 @@
 [![Open Source Love png1](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)
 [![ForTheBadge built-by-developers](http://ForTheBadge.com/images/badges/built-by-developers.svg)](https://GitHub.com/Naereen/)
 
-![RADIO APP ICON ARC ](https://github.com/aliriorivera/RadioWakeUpARC/tree/master/app/src/main/res/drawable/radio_ARC_ic.png)
+
+<p align="center">
+  <img alt="RADIO APP ICON ARC" src="https://github.com/aliriorivera/RadioWakeUpARC/tree/master/app/src/main/res/drawable/radio_ARC_ic.png">
+</p>
+
 
 This Android application provides the user with the posibility to play a radio station stream at a specific date and time. 
 Similar to an alarm radio clock, you can set the time and for now (V 1.0) play a Colombian radio station: [Radioactiva 97.9 FM](http://www.radioacktiva.com/).
 
-If you need to wake up in the mornigns with a radio station, you just select the time and the app will open the radios tation (in future version there is going to be a rado stations browser).
+If you need to wake up in the mornings with a radio station, you just select the time and the app will open the radio station (in future versions, there is going to be a radio station browser).
 
 
 ### Release: V1.0
 
 I have just released the first version of the application!!!!.
 In this version you can set times and play with basic functionalitites.
-For more details see 
+For more details see:
 
---> [RadioWakeUpARC V 1.0](https://github.com/aliriorivera/RadioWakeUpARC/releases/tag/v1.0).
+-->  [RadioWakeUpARC V 1.0](https://github.com/aliriorivera/RadioWakeUpARC/releases/tag/v1.0).
 
 
 # License
