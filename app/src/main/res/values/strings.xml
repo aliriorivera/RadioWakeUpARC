@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">RadioWakeUpARC</string>
+    <string name="app_name">Radio_wakeupARC</string>
+    <string name="edit_message">Enter a message</string>
+    <string name="button_set_alarm">Set Radio Alarm</string>
+    <string name="button_stop_radio">Stop Radio Alarm</string>
+    <string name="top_label_welcome">Please Select the date and Time</string>
+    <string name="top_label_welcome2">you want the radio station to start at:</string>
+    <string name="setDateLabel">Date:</string>
+    <string name="setTimeLabel">Time:</string>
 </resources>
