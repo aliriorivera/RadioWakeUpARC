@@ -6,7 +6,7 @@
 
 
 <p align="center">
-  <img alt="RADIO APP ICON ARC" src="https://github.com/aliriorivera/RadioWakeUpARC/tree/master/app/src/main/res/drawable/radio_ARC_ic.png">
+  <img alt="RADIO APP ICON ARC" src="radio_ARC_ic.png">
 </p>
 
 
