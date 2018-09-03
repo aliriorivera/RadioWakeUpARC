@@ -16,6 +16,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".RadioPlayerService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".RadioAlarmReceiver"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
 </manifest>
