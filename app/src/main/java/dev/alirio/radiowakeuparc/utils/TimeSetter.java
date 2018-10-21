@@ -1,4 +1,4 @@
-package dev.alirio.radiowakeuparc;
+package dev.alirio.radiowakeuparc.utils;
 
 
 /**

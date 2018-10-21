@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dev.alirio.radiowakeuparc">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,23 +14,23 @@
         <activity android:name=".RadioWakeupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <service
-            android:name=".RadioPlayerService"
+            android:name=".services.RadioPlayerService"
             android:enabled="true"
             android:exported="true" />
 
         <receiver
-            android:name=".RadioAlarmReceiver"
+            android:name=".receivers.RadioAlarmReceiver"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
+
+        <activity
+            android:name=".SearchRadioStationActivity"
+            android:label="@string/title_activity_search_radio_station"></activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
 
 </manifest>

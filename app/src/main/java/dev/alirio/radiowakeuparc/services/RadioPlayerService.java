@@ -1,4 +1,4 @@
-package dev.alirio.radiowakeuparc;
+package dev.alirio.radiowakeuparc.services;
 
 import android.app.Service;
 import android.content.Intent;
@@ -32,6 +32,8 @@ import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 
+import dev.alirio.radiowakeuparc.RadioWakeupActivity;
+
 /**
  * author: Alirio Rivera
  * RadioPlayerService is a service that runs in the background and allows to play a radio station
@@ -40,8 +42,8 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 public class RadioPlayerService extends Service implements ExoPlayer.EventListener  {
 
     private SimpleExoPlayer player;
-    private String radioName = "Radioactiva Colombia 97.9FM";
-    private final String streamUrl = "http://19183.live.streamtheworld.com:80/RADIO_ACTIVAAAC_SC"; //radio URL from now only Radioactiva Colombia
+    private String radioName = "";
+    private String radioURLStream = "";
 
     public RadioPlayerService() {
     }
@@ -59,7 +61,9 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
         DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(), "ExoPlayer");
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
         Handler mainHandler = new Handler();
-        MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(streamUrl),
+
+        updateRadioInformation();
+        MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(radioURLStream),
                 dataSourceFactory,
                 extractorsFactory,
                 mainHandler,
@@ -70,8 +74,14 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
         return Service.START_NOT_STICKY;
     }
 
+    private void updateRadioInformation(){
+        this.radioURLStream = RadioWakeupActivity.DEFAULT_RADIO_STATION.getUrl();
+        this.radioName = RadioWakeupActivity.DEFAULT_RADIO_STATION.getName();
+    }
+
     @Override
     public void onCreate() {
+        updateRadioInformation();
         Toast.makeText(this, "Playing: " + radioName, Toast.LENGTH_LONG).show();
         super.onCreate();
     }
@@ -81,6 +91,7 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
     public void onDestroy() {
         super.onDestroy();
         player.stop();
+        updateRadioInformation();
         Toast.makeText(this, "Radio Station "+ radioName +" stopped", Toast.LENGTH_LONG).show();
     }
 
