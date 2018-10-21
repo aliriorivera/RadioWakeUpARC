@@ -7,4 +7,16 @@
     <string name="top_label_welcome2">you want the radio station to start at:</string>
     <string name="setDateLabel">Date:</string>
     <string name="setTimeLabel">Time:</string>
+    <string name="title_activity_search_radio_station">SearchRadioStationActivity</string>
+    <string name="openRadioSearch">Search and set Radio Station</string>
+    <string name="searchStation">Search</string>
+    <string name="searchRadioText">name</string>
+    <string name="hintSearchStation">Please type the name of the Radio Station</string>
+    <string name="developedBy">Developed by: @aliriorivera</string>
+    <string name="defaultStationSelected">This Radio Station will be played: </string>
+    <string name="noDefaultRadioSelected">You have no selected any Radio Station!!</string>
+    <string name="radioStationName">Name:</string>
+    <string name="radioStationCountry">Country:</string>
+    <string name="radioStationTags">Tags:</string>
+    <string name="voidRadioStationSet"></string>
 </resources>
