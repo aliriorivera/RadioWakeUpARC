@@ -1,8 +1,10 @@
 package dev.alirio.radiowakeuparc.restServices;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,29 +21,21 @@ import dev.alirio.radiowakeuparc.SearchRadioStationActivity;
 import dev.alirio.radiowakeuparc.pojos.RadioStation;
 
 /**
- * RadioStationRESTAPIConsumer consumes a Rest API which returns a list of radio stations depending
- * on the parameter typed by the app user
+ * RadioStationRESTAPIConsumer consumes a Rest API and returns the result as a String value
  * author: Alirio Rivera
  */
-public class RadioStationRESTAPIConsumer extends AsyncTask<Void, Void ,String >{
+public abstract class RadioStationRESTAPIConsumer extends AsyncTask<Void, Void ,String >{
 
-
-    private String userInsert;
     private String restURL ;
-    private List<RadioStation> radiosFromRestAPI;
-    private SearchRadioStationActivity searchStationCurrentActivity;
 
-    public RadioStationRESTAPIConsumer(String userText, SearchRadioStationActivity triggedActivity){
-        this.userInsert = userText;
-        this.restURL = "http://www.radio-browser.info/webservice/json/stations/byname/";
-        this.searchStationCurrentActivity = triggedActivity;
-        this.radiosFromRestAPI = new ArrayList<>();
+    public RadioStationRESTAPIConsumer(String restURL){
+        this.restURL = restURL.replaceAll("\\s", "");// if the user types more than one string the API fails, so eliminate spaces!!;
     }
 
     @Override
     protected String doInBackground(Void... params) {
         try {
-            URL url = new URL(restURL + userInsert);
+            URL url = new URL(restURL);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             try {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
@@ -52,7 +46,7 @@ public class RadioStationRESTAPIConsumer extends AsyncTask<Void, Void ,String >{
                 }
                 bufferedReader.close();
                 String res = stringBuilder.toString();
-                buildRadioResultListFromJsonString(res);
+                this.buildRadioResultListFromJsonString(res);
 
                 return res;
             }
@@ -62,36 +56,11 @@ public class RadioStationRESTAPIConsumer extends AsyncTask<Void, Void ,String >{
         }
         catch(Exception e) {
             Log.e("ERROR", e.getMessage(), e);
+            Toast.makeText(null, "Error trying to get information about the Radio Stations available!!.",
+                    Toast.LENGTH_LONG).show();
             return null;
         }
     }
 
-    @Override
-    protected void onPostExecute(String result) {
-        searchStationCurrentActivity.updateRadioListRecycler(getRadiosFromRestAPI());
-        //TODO fetch icon URL and get the image to show in the application
-    }
-
-    private void buildRadioResultListFromJsonString(String restResult){
-        try{
-            JSONArray jsonFromAPI = new JSONArray(restResult);
-            for (int i = 0; i < jsonFromAPI.length(); i++)
-            {
-                JSONObject jsonObj = jsonFromAPI.getJSONObject(i);
-                RadioStation radio = new RadioStation(
-                        jsonObj.get("name").toString(),
-                        jsonObj.get("country").toString(),
-                        jsonObj.get("tags").toString(),
-                        jsonObj.get("url").toString());
-
-                radiosFromRestAPI.add(radio);
-            }
-        }catch (JSONException jsonException){
-
-        }
-    }
-
-    public List<RadioStation> getRadiosFromRestAPI() {
-        return radiosFromRestAPI;
-    }
+    abstract public void buildRadioResultListFromJsonString(String restResult);
 }

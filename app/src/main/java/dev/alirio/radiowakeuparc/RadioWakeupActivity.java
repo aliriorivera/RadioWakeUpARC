@@ -74,7 +74,7 @@ public class RadioWakeupActivity extends AppCompatActivity {
     public void setRadioAlarmStart(View view) {
 
         if (DEFAULT_RADIO_STATION == null){
-            Toast.makeText(this, "You have not selected Any Radio Station to Play (touch " + this.getString(R.string.openRadioSearch) + ")!!!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please select or try again with a new Radio Station to Play (touch " + this.getString(R.string.openRadioSearch) + ")!!!", Toast.LENGTH_LONG).show();
         }else if(isDateAndTimeFormatParseable()){
             Context context = this.getApplicationContext();
             EditText dateSelected = (EditText) findViewById(R.id.alarmDateText);
@@ -159,6 +159,10 @@ public class RadioWakeupActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * updateMessagesInScreenActivity updates the label information for all the texts in the main activities
+     * depending on the user input and radio web API result
+     */
     private void updateMessagesInScreenActivity(){
         //labels
         TextView radioNameLabel = (TextView) findViewById(R.id.radioNameLabel);

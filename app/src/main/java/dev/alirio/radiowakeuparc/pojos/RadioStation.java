@@ -6,7 +6,11 @@ package dev.alirio.radiowakeuparc.pojos;
  */
 public class RadioStation {
 
-    private String name, country, tags, url;
+    private String id;
+    private String name;
+    private String country;
+    private String tags;
+    private String url;
 
     public RadioStation() {
     }
@@ -15,16 +19,26 @@ public class RadioStation {
 
     /**
      * Constructor of the POJO class
+     * @param id id of the radiostation in the REST API
      * @param name name of the radio station
      * @param country country of the radio station
      * @param tags tags of the radio station
      * @param url url of the radio station
      */
-    public RadioStation(String name, String country, String tags, String url) {
+    public RadioStation(String id, String name, String country, String tags, String url) {
+        this.id = id;
         this.name = name;
         this.country = country;
         this.tags = tags;
         this.url = url;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

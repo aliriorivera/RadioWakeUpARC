@@ -50,28 +50,30 @@ public class RadioPlayerService extends Service implements ExoPlayer.EventListen
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        RenderersFactory renderersFactory = new DefaultRenderersFactory(getApplicationContext());
-        BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
-        TrackSelection.Factory trackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
-        TrackSelector trackSelector = new DefaultTrackSelector(trackSelectionFactory);
-        LoadControl loadControl = new DefaultLoadControl();
 
-        player = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector, loadControl);
+            RenderersFactory renderersFactory = new DefaultRenderersFactory(getApplicationContext());
+            BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
+            TrackSelection.Factory trackSelectionFactory = new AdaptiveTrackSelection.Factory(bandwidthMeter);
+            TrackSelector trackSelector = new DefaultTrackSelector(trackSelectionFactory);
+            LoadControl loadControl = new DefaultLoadControl();
 
-        DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(), "ExoPlayer");
-        ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
-        Handler mainHandler = new Handler();
+            player = ExoPlayerFactory.newSimpleInstance(renderersFactory, trackSelector, loadControl);
 
-        updateRadioInformation();
-        MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(radioURLStream),
-                dataSourceFactory,
-                extractorsFactory,
-                mainHandler,
-                null);
+            DataSource.Factory dataSourceFactory = new DefaultDataSourceFactory(getApplicationContext(), "ExoPlayer");
+            ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
+            Handler mainHandler = new Handler();
 
-        player.prepare(mediaSource);
-        player.setPlayWhenReady(true);
-        return Service.START_NOT_STICKY;
+            updateRadioInformation();
+            MediaSource mediaSource = new ExtractorMediaSource(Uri.parse(radioURLStream),
+                    dataSourceFactory,
+                    extractorsFactory,
+                    mainHandler,
+                    null);
+
+            player.prepare(mediaSource);
+            player.setPlayWhenReady(true);
+
+            return Service.START_NOT_STICKY;
     }
 
     private void updateRadioInformation(){
