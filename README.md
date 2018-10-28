@@ -23,10 +23,10 @@ If you need to wake up in the mornings with a radio station, you just select the
 
 ### Release: V1.1.1
 
-implemented the possibility to play radio streams in different multimedia playlist formats. <br />
+Implemented the possibility to play radio streams in different multimedia playlist formats. <br />
 For more details (and downloads) see:
 
--->  [RadioWakeUpARC V 1.1](https://github.com/aliriorivera/RadioWakeUpARC/releases/tag/v1.1.1).
+-->  [RadioWakeUpARC V 1.1.1](https://github.com/aliriorivera/RadioWakeUpARC/releases/tag/V1.1.1).
 
 
 ### Release: V1.1
