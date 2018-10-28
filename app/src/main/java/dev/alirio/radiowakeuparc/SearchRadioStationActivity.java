@@ -1,6 +1,5 @@
 package dev.alirio.radiowakeuparc;
 
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -19,7 +18,8 @@ import java.util.List;
 import dev.alirio.radiowakeuparc.actionListeners.RadioListRecyclerListTouchListener;
 import dev.alirio.radiowakeuparc.adapters.RadioStationAdapter;
 import dev.alirio.radiowakeuparc.pojos.RadioStation;
-import dev.alirio.radiowakeuparc.restServices.RadioStationRESTAPIConsumer;
+import dev.alirio.radiowakeuparc.restServices.RadioStationDetailInfo;
+import dev.alirio.radiowakeuparc.restServices.RadioStationURLChecker;
 
 
 /**
@@ -53,15 +53,14 @@ public class SearchRadioStationActivity extends Activity {
                 radioListStationsRecyclerView, new RadioListRecyclerListTouchListener.ClickListener() {
             @Override
             public void onClick(View view, final int position) {
-                RadioWakeupActivity.DEFAULT_RADIO_STATION = radioStationsList.get(position);
-                Intent setNewRadioStationIntent = new Intent(SearchRadioStationActivity.this, RadioWakeupActivity.class);
-                startActivity(setNewRadioStationIntent);
+                RadioStationURLChecker checkRadioURL = new RadioStationURLChecker(radioStationsList.get(position), SearchRadioStationActivity.this);
+                checkRadioURL.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
             }
 
             @Override
             public void onLongClick(View view, int position) {
-                Intent setNewRadioStationIntent = new Intent(SearchRadioStationActivity.this, RadioWakeupActivity.class);
-                startActivity(setNewRadioStationIntent);
+                // I think it is better for the app to manage only when the user clicks on the screen and not take into
+                // account long clicks
             }
         }));
 
@@ -78,8 +77,8 @@ public class SearchRadioStationActivity extends Activity {
         TextView userText = (TextView) this.findViewById(R.id.radioStationSearchText);
         if (!userText.getText().toString().equals(this.getString(R.string.voidRadioStationSet))){
             progressSearch.setVisibility(View.VISIBLE);
-            RadioStationRESTAPIConsumer radioAPIConsumer = new RadioStationRESTAPIConsumer(userText.getText().toString(), SearchRadioStationActivity.this);
-            radioAPIConsumer.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+            RadioStationDetailInfo searchRadiosFromUserInput = new RadioStationDetailInfo(userText.getText().toString(), this);
+            searchRadiosFromUserInput.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
         }else{
             Toast.makeText(SearchRadioStationActivity.this, "Please type a Radio Station Name to Search!!",
                     Toast.LENGTH_LONG).show();
