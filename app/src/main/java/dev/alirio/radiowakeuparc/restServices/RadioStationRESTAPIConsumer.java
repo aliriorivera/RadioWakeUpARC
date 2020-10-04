@@ -13,9 +13,12 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.InetAddress;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import dev.alirio.radiowakeuparc.SearchRadioStationActivity;
 import dev.alirio.radiowakeuparc.pojos.RadioStation;
@@ -24,11 +27,11 @@ import dev.alirio.radiowakeuparc.pojos.RadioStation;
  * RadioStationRESTAPIConsumer consumes a Rest API and returns the result as a String value
  * author: Alirio Rivera
  */
-public abstract class RadioStationRESTAPIConsumer extends AsyncTask<Void, Void ,String >{
+public abstract class RadioStationRESTAPIConsumer extends AsyncTask<Void, Void ,String > {
 
-    private String restURL ;
+    private String restURL;
 
-    public RadioStationRESTAPIConsumer(String restURL){
+    public RadioStationRESTAPIConsumer(String restURL) {
         this.restURL = restURL.replaceAll("\\s", "");// if the user types more than one string the API fails, so eliminate spaces!!;
     }
 
@@ -37,6 +40,7 @@ public abstract class RadioStationRESTAPIConsumer extends AsyncTask<Void, Void ,
         try {
             URL url = new URL(restURL);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("User-Agent", "RadioWakeUpARC V1.2 Android App");
             try {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
                 StringBuilder stringBuilder = new StringBuilder();
@@ -49,12 +53,10 @@ public abstract class RadioStationRESTAPIConsumer extends AsyncTask<Void, Void ,
                 this.buildRadioResultListFromJsonString(res);
 
                 return res;
-            }
-            finally{
+            } finally {
                 urlConnection.disconnect();
             }
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             Log.e("ERROR", e.getMessage(), e);
             Toast.makeText(null, "Error trying to get information about the Radio Stations available!!.",
                     Toast.LENGTH_LONG).show();

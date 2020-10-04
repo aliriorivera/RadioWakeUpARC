@@ -63,6 +63,7 @@ obj/
 /out/
 
 # User-specific configurations
+.idea
 .idea/caches/
 .idea/libraries/
 .idea/shelf/
@@ -83,6 +84,9 @@ obj/
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
+.idea/codeStyles/Project.xml
+.idea/gradle.xml
+.idea/jarRepositories.xml
 
 # OS-specific files
 .DS_Store

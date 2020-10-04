@@ -20,25 +20,26 @@ import dev.alirio.radiowakeuparc.pojos.RadioStation;
  */
 public class RadioStationDetailInfo extends RadioStationRESTAPIConsumer{
 
-
     private List<RadioStation> radiosFromRestAPI;
     private SearchRadioStationActivity triggedActivity;
 
     public RadioStationDetailInfo(String userText, SearchRadioStationActivity triggedActivity) {
-        super("http://www.radio-browser.info/webservice/json/stations/byname/"+userText);
+
+        super("https://de1.api.radio-browser.info/json/stations/byname/"+userText);
         this.radiosFromRestAPI = new ArrayList<>();
         this.triggedActivity = triggedActivity;
     }
 
     @Override
     public void buildRadioResultListFromJsonString(String restResult){
+        System.out.println("URL RESULT: " + restResult);
         try{
             JSONArray jsonFromAPI = new JSONArray(restResult);
             for (int i = 0; i < jsonFromAPI.length(); i++)
             {
                 JSONObject jsonObj = jsonFromAPI.getJSONObject(i);
                 RadioStation radio = new RadioStation(
-                        jsonObj.get("id").toString(),
+                        jsonObj.get("stationuuid").toString(),
                         jsonObj.get("name").toString(),
                         jsonObj.get("country").toString(),
                         jsonObj.get("tags").toString(),

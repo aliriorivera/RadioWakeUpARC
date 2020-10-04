@@ -3,6 +3,7 @@ package dev.alirio.radiowakeuparc.restServices;
 import android.content.Intent;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -21,7 +22,7 @@ public class RadioStationURLChecker extends RadioStationRESTAPIConsumer{
     private SearchRadioStationActivity triggedActivity;
 
     public RadioStationURLChecker(RadioStation radioStation, SearchRadioStationActivity triggedActivity) {
-        super("http://www.radio-browser.info/webservice/v2/json/url/"+radioStation.getId());
+        super("https://de1.api.radio-browser.info/json/stations/byuuid/"+radioStation.getId());
         this.radioStation = radioStation;
         this.triggedActivity = triggedActivity;
 
@@ -29,11 +30,20 @@ public class RadioStationURLChecker extends RadioStationRESTAPIConsumer{
 
     @Override
     public void buildRadioResultListFromJsonString(String restResult) {
-        try{
-                JSONObject jsonObj = new JSONObject(restResult);
 
-                if(jsonObj != null && Boolean.valueOf(jsonObj.get("ok").toString())){
-                    radioStation.setUrl(jsonObj.get("url").toString());
+        System.out.println("OTRO RESULT " + restResult);
+        try{
+                JSONArray listUUIDStations = new JSONArray(restResult);
+                JSONObject jsonObj = null;
+                if (listUUIDStations != null && listUUIDStations.length() > 0){
+                    jsonObj = new JSONObject(listUUIDStations.get(0).toString());
+                }
+
+                System.out.println("ID RESULT " + jsonObj.get("lastcheckok").toString());
+
+                if(jsonObj != null && jsonObj.get("lastcheckok").toString().equals("1")){
+                    radioStation.setUrl(jsonObj.get("url_resolved").toString());
+                    System.out.println("RADIO STATION: " + radioStation.getUrl());
                     RadioWakeupActivity.DEFAULT_RADIO_STATION = radioStation;
                 }else{
                     radioStation = null;
@@ -43,6 +53,9 @@ public class RadioStationURLChecker extends RadioStationRESTAPIConsumer{
                 }
 
         }catch (JSONException jsonException){
+            System.out.println("**************");
+            jsonException.printStackTrace();
+            System.out.println("**************");
             Toast.makeText(triggedActivity, "Error trying to check the radio station stream!!.",
                     Toast.LENGTH_LONG).show();
         }

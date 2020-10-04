@@ -23,7 +23,7 @@ import dev.alirio.radiowakeuparc.restServices.RadioStationURLChecker;
 
 
 /**
- * SearchRadioStationActivity represents the view where the user has the posibility to search for
+ * SearchRadioStationActivity represents the view where the user has the possibility to search for
  * radio stations in a Rest API
  * author: Alirio Rivera
  */
@@ -73,7 +73,6 @@ public class SearchRadioStationActivity extends Activity {
 
 
     public void searchRadioStation(View view){
-
         TextView userText = (TextView) this.findViewById(R.id.radioStationSearchText);
         if (!userText.getText().toString().equals(this.getString(R.string.voidRadioStationSet))){
             progressSearch.setVisibility(View.VISIBLE);
