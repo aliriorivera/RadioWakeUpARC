@@ -30,6 +30,7 @@ import dev.alirio.radiowakeuparc.pojos.RadioStation;
 public abstract class RadioStationRESTAPIConsumer extends AsyncTask<Void, Void ,String > {
 
     private String restURL;
+    private String toastError = null;
 
     public RadioStationRESTAPIConsumer(String restURL) {
         this.restURL = restURL.replaceAll("\\s", "");// if the user types more than one string the API fails, so eliminate spaces!!;
@@ -37,8 +38,13 @@ public abstract class RadioStationRESTAPIConsumer extends AsyncTask<Void, Void ,
 
     @Override
     protected String doInBackground(Void... params) {
+        if (!isDNSServerReady()){
+            toastError = "Streaming server not ready, please Try again.";
+            Log.println(Log.WARN, "WARN", "DNS server is empty: " + toastError);
+            return null;
+        }
         try {
-            URL url = new URL(restURL);
+            URL url = new URL(RadioDNSResolver.getRadioServer() + restURL);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("User-Agent", "RadioWakeUpARC V1.2 Android App");
             try {
@@ -58,10 +64,25 @@ public abstract class RadioStationRESTAPIConsumer extends AsyncTask<Void, Void ,
             }
         } catch (Exception e) {
             Log.e("ERROR", e.getMessage(), e);
-            Toast.makeText(null, "Error trying to get information about the Radio Stations available!!.",
-                    Toast.LENGTH_LONG).show();
+            toastError  = "Error trying to get information about the Radio Stations available!!.";
             return null;
         }
+    }
+
+
+    @Override
+    protected void onPostExecute(String result) {
+        if(toastError != null){
+            Toast.makeText(null, toastError, Toast.LENGTH_LONG).show();
+            toastError = null;
+        }
+    }
+
+    public boolean isDNSServerReady(){
+        if (RadioDNSResolver.getRadioServer() != null){
+            return true;
+        }
+        return false;
     }
 
     abstract public void buildRadioResultListFromJsonString(String restResult);

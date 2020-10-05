@@ -4,8 +4,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +20,8 @@ import java.util.Date;
 
 import dev.alirio.radiowakeuparc.pojos.RadioStation;
 import dev.alirio.radiowakeuparc.receivers.RadioAlarmReceiver;
+import dev.alirio.radiowakeuparc.restServices.RadioDNSResolver;
+import dev.alirio.radiowakeuparc.restServices.RadioStationURLChecker;
 import dev.alirio.radiowakeuparc.services.RadioPlayerService;
 import dev.alirio.radiowakeuparc.utils.DateSetter;
 import dev.alirio.radiowakeuparc.utils.TimeSetter;
@@ -63,6 +67,13 @@ public class RadioWakeupActivity extends AppCompatActivity {
         executeButtonAction(DEACTIVATE_BUTTON, R.id.stopAlarmButton);
 
         updateMessagesInScreenActivity();
+
+        // getting the IP to query the Radio Streaming service. That IP will be used during
+        // the whole application run.
+        if (RadioDNSResolver.getRadioServer() == null){
+            RadioDNSResolver checkRadioURL = new RadioDNSResolver();
+            checkRadioURL.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR);
+        }
 
         radioAlarmReceiver = new RadioAlarmReceiver();
     }
@@ -137,6 +148,7 @@ public class RadioWakeupActivity extends AppCompatActivity {
             }
 
         } catch (ParseException e) {
+            Log.e("ERROR", e.getMessage(), e);
             Toast.makeText(this, "Date or Time format are not valid!!", Toast.LENGTH_LONG).show();
             return false;
         }

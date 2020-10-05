@@ -1,6 +1,7 @@
 package dev.alirio.radiowakeuparc.restServices;
 
 
+import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -25,14 +26,13 @@ public class RadioStationDetailInfo extends RadioStationRESTAPIConsumer{
 
     public RadioStationDetailInfo(String userText, SearchRadioStationActivity triggedActivity) {
 
-        super("https://de1.api.radio-browser.info/json/stations/byname/"+userText);
+        super("/json/stations/byname/"+userText);
         this.radiosFromRestAPI = new ArrayList<>();
         this.triggedActivity = triggedActivity;
     }
 
     @Override
     public void buildRadioResultListFromJsonString(String restResult){
-        System.out.println("URL RESULT: " + restResult);
         try{
             JSONArray jsonFromAPI = new JSONArray(restResult);
             for (int i = 0; i < jsonFromAPI.length(); i++)
@@ -48,6 +48,7 @@ public class RadioStationDetailInfo extends RadioStationRESTAPIConsumer{
                 radiosFromRestAPI.add(radio);
             }
         }catch (JSONException jsonException){
+            Log.e("ERROR", jsonException.getMessage(), jsonException);
             Toast.makeText(triggedActivity, "Error trying to parse the information From the Radio stations API!!.",
             Toast.LENGTH_LONG).show();
         }

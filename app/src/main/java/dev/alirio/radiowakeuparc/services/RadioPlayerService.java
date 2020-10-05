@@ -43,7 +43,6 @@ public class RadioPlayerService extends Service {
         });
 
         try {
-            System.out.println("MUSIC FILE: " + radioURLStream);
             mediaPlayer.setDataSource(radioURLStream);
             mediaPlayer.prepareAsync();
         } catch (IllegalArgumentException e) {
@@ -60,9 +59,8 @@ public class RadioPlayerService extends Service {
 
 
     private void updateRadioInformation(){
-        System.out.println("URLLLL: " + RadioWakeupActivity.DEFAULT_RADIO_STATION.getUrl());
-            this.radioURLStream = RadioWakeupActivity.DEFAULT_RADIO_STATION.getUrl();
-            this.radioName = RadioWakeupActivity.DEFAULT_RADIO_STATION.getName();
+        this.radioURLStream = RadioWakeupActivity.DEFAULT_RADIO_STATION.getUrl();
+        this.radioName = RadioWakeupActivity.DEFAULT_RADIO_STATION.getName();
     }
 
     @Override

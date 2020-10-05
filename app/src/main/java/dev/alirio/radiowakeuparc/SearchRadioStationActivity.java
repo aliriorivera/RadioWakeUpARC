@@ -68,7 +68,6 @@ public class SearchRadioStationActivity extends Activity {
         progressSearch.setVisibility(View.GONE);
 
         radioListStationsRecyclerView.setAdapter(radioStationsAdapter);
-
     }
 
 
